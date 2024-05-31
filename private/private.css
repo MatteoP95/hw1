@@ -1,0 +1,22 @@
+#font{
+    font-family: "Carlito", sans-serif;
+    font-weight: 400;
+    font-style: auto;
+
+    font-size: calc(1em+1%);
+}
+
+.marrone{
+    background-color: rgb(120, 107, 61);
+}
+
+.giallo{
+    background-color:rgb(255, 230, 140);
+}
+
+.bianco{
+    background-color: rgb(255, 252, 242);
+}
+.testo{
+    color: rgb(216, 212, 208);
+}
