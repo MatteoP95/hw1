@@ -30,6 +30,4 @@
    curl_close($curl2);
 
    echo $risultatiRicerca;
-
-
 ?>

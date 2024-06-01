@@ -20,3 +20,26 @@
 .testo{
     color: rgb(216, 212, 208);
 }
+
+#flex_footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    text-align: center;
+
+    background-color: rgb(255, 252, 242);
+}
+
+.vuoto{
+    background-color: rgb(255, 255, 255);
+    height: 50px;
+}
+
+#carica_pg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

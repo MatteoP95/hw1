@@ -47,7 +47,7 @@ if(isset($_POST["nome_utente"]) && isset($_POST["password"]) && isset($_POST["ri
             $_SESSION["nome_utente"] = $_POST["nome_utente"];
             $_SESSION["id_utente"] = mysqli_insert_id($dbconn);
             mysqli_close($dbconn);
-            header("Location: ../private/private.php");
+            header("Location: ../private/");
             exit;
         } else{
             $elencoErrori[]= "Errore con il db";

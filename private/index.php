@@ -17,15 +17,24 @@ if(!$idUtente=isLogged()){
         echo "errore: ".mysqli_connect_error()." nella connessione al db";
         exit();
     }
-    $idUtente = mysqli_real_escape_string($dbconn, $idUtente);
-    $query = "SELECT * FROM Utenti WHERE id = '$idUtente'";
-    $risultato = mysqli_query($dbconn, $query);
-    $infoUtente = mysqli_fetch_assoc($risultato);   
-    // $query = "SELECT * FROM Utenti WHERE id = $userid";
+    // $idUtente = mysqli_real_escape_string($dbconn, $idUtente);
+    // $query = "SELECT * FROM utenti WHERE id = '$idUtente'";
+    // $risultato = mysqli_query($dbconn, $query);
+    // $riga = mysqli_fetch_assoc($risultato);   
 
-    // $idUtente = mysqli_real_escape_string($conn, $userid);
+    // $riga['nome_utente'];
     
-    echo "ciao ".$_SESSION["nome_utente"];
+    // echo "ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
+    // echo "</br>";
+    // echo "ciao ".$riga['nome_utente']."  ".$riga['id'];
+
+    $query = "SELECT nome_utente FROM utenti WHERE id = '$idUtente'";
+    $risultato = mysqli_query($dbconn, $query);
+    $nomeUtente = mysqli_fetch_assoc($risultato);   
+    
+    echo "ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
+    echo "</br>";
+    echo "ciao ".$nomeUtente['nome_utente']."  ";
 ?>
 
 <head>
@@ -39,9 +48,93 @@ if(!$idUtente=isLogged()){
 </head>
 <body>
     <div class="bianco">
-        <div id="carica_pg">
+                            
+    <div class="vuoto">
+                    </div>
+        <div>
+            <form action="" method="get" id="carica_pg">
+                
+                <label for="livello">Livello</label>
+                <!-- <input type="range" name="livello" id="livello" min="1" max="20"> -->
+                <!-- <select name="livello" id="livello">
+                    <?php for ($i = 1; $i <= 20; $i++) : ?>
+                        <option value="<?php 
+                                            echo $i; 
+                                        ?>">
+                            <?php
+                                echo $i; 
+                             ?>
+                        </option>
+                    <?php endfor; ?>
+                </select> -->
+                <input type="number" name="livello" id="livello" min="1" max="20">
 
+
+                <label for="razza">Razza</label>
+                <!-- <input type="text" name="razza" id="razza"> -->
+                <select name="razza" id="razza">
+                    <option value="none">---scegli---</option>
+                    <option value="Elfo">Elfo</option>
+                    <option value="Halfling">Halfling</option>
+                    <option value="Nano">Nano</option>
+                    <option value="Umano">Umano</option>
+                    <option value="Dragonide">Dragonide</option>
+                    <option value="Gnomo">Gnomo</option>
+                    <option value="Mezzelfo">Mezzelfo</option>
+                    <option value="Mezzorco">Mezzorco</option>
+                    <option value="Tiefling">Tiefling</option>
+                </select>
+
+                <label for="classe">Classe</label>
+                <!-- <input type="text" name="classe" id="classe"> -->
+                <select name="classe" id="classe">
+                    <option value="none">---scegli---</option>
+                    <option value="Barbaro">Barbaro</option>
+                    <option value="Bardo">Bardo</option>
+                    <option value="Chierico">Chierico</option>
+                    <option value="Druido">Druido</option>
+                    <option value="Guerriero">Guerriero</option>
+                    <option value="Ladro">Ladro</option>
+                    <option value="Mago">Mago</option>
+                    <option value="Monaco">Monaco</option>
+                    <option value="Paladino">Paladino</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Stregone">Stregone</option>
+                    <option value="Warlock">Warlock</option>
+                </select>
+                
+                <label for="sottoclasse" id="label_sottoclasse">Sottoclasse</label>
+                <!-- <input type="text" name="sottoclasse" id="sottoclasse"> -->
+                <select name="sottoclasse" id="sottoclasse" disabled>
+                    <option value="scegli una classe">---scegli una classe---</option>
+                </select>
+                
+                <label for="background">Background</label>
+                <select name="background" id="background">
+                    <option value="Accolito">Accolito</option>
+                    <option value="Artigiano della Gilda">Artigiano della Gilda</option>
+                    <option value="Ciarlatano">Ciarlatano</option>
+                    <option value="Criminale">Criminale</option>
+                    <option value="Eremita">Eremita</option>
+                    <option value="Eroe Popolare">Eroe Popolare</option>
+                    <option value="Forestiero">Forestiero</option>
+                    <option value="Intrattenitore">Intrattenitore</option>
+                    <option value="Marinaio">Marinaio</option>
+                    <option value="Monello">Monello</option>
+                    <option value="Nobile">Nobile</option>
+                    <option value="Sapiente">Sapiente</option>
+                    <option value="Soldato">Soldato</option>
+
+
+                </select>
+
+                <input type="submit" value="Invia">
+                
+            </form>
         </div>
+                            
+        <div class="vuoto">
+                    </div>
         <div id="ricevi_tuoi_pg">
 
         </div id="ricevi_altri_pg">
@@ -65,7 +158,7 @@ if(!$idUtente=isLogged()){
                 </div>
                 <div class="sezione_dx">
                     <div class="sezione_dx_top">
-
+<!-- action="javascript:;" onsubmit="ricerca_spotify(event)"  -->
                         <form id="form_spotify">
                             <select name="tipo" id="tipo_spotify">
                                 <option value="">
@@ -91,6 +184,9 @@ if(!$idUtente=isLogged()){
                         <div id="contenuto_spotify">
                         </div>
                     </div>
+                    
+                    <div class="vuoto">
+                    </div>
                 </div>
             </div>
 
@@ -98,5 +194,18 @@ if(!$idUtente=isLogged()){
         <a href="../logout/">Disconnettiti</a>
         <a href="../index/">torna alla home</a>
     </div>
+
+    <footer id="flex_footer">
+            <p>
+                <a class="collegamento" href="http://www.wikidot.com/doc">Aiuto</a> | 
+                <a class="collegamento" href="http://www.wikidot.com/legal:terms-of-service">Termini di Servizio</a> | 
+                <a class="collegamento" href="http://www.wikidot.com/legal:privacy-policy">Privacy</a> | 
+                <a class="collegamento" href="http://feedback.wikidot.com/">Segnala un Bug</a>
+            </p>
+            <p>
+                Se non indicato da altre parti, il contenuto di questa pagina non ha licenze ed e' stato -rubato-<br>
+                gentilmente offerto da <a class="collegamento" href="http://www.wikidot.com/">Wikidot.com</a>
+            </p>
+        </footer>
 </body>
 </html>
