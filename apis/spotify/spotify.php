@@ -1,9 +1,9 @@
 <?php
-// require_once "../session/session.php"; 
+require "../session/session.php"; 
 
-// if(!isLogged()){
-//     exit;
-// }
+if(!isLogged()){
+    exit;
+}
 
    $clientIdSpotify = "";/*'your_client_id'*/
    $clientSecretSpotify = "";/*'your_client_secret'*/

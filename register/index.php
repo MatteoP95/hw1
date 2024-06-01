@@ -1,5 +1,5 @@
 <?php
-require_once '../session/session.php';
+require "../session/session.php";
 
 if(isLogged()){
     header("Location: ../private/");

@@ -1,5 +1,5 @@
 <?php
-    require_once 'dbsettings.php';
+    require 'dbsettings.php';
     session_start();
 
     function isLogged() {

@@ -1,17 +1,11 @@
 <?php
-require_once "../session/session.php"; 
+require "../session/session.php"; 
 
 if(!$idUtente=isLogged()){
     header("Location: ../index/");
     exit;
 }
 
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<?php
     $dbconn=mysqli_connect($dbsettings["host"], $dbsettings["username"], $dbsettings["password"], $dbsettings["dbname"]) /*or die(mysqli_error($dbconn))*/;
     if(mysqli_connect_errno()){
         echo "errore: ".mysqli_connect_error()." nella connessione al db";
@@ -28,15 +22,19 @@ if(!$idUtente=isLogged()){
     // echo "</br>";
     // echo "ciao ".$riga['nome_utente']."  ".$riga['id'];
 
-    $query = "SELECT nome_utente FROM utenti WHERE id = '$idUtente'";
-    $risultato = mysqli_query($dbconn, $query);
-    $nomeUtente = mysqli_fetch_assoc($risultato);   
+    $query = "SELECT id, nome_utente FROM utenti WHERE id = '$idUtente'";
+    $risultato = mysqli_query($dbconn, $query)  or die($dbconn);
+    $riga = mysqli_fetch_assoc($risultato);   
     
     echo "ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
     echo "</br>";
-    echo "ciao ".$nomeUtente['nome_utente']."  ";
+    echo "ciao ".$riga['nome_utente']."  ".$riga['id'];
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
+</html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,32 +46,18 @@ if(!$idUtente=isLogged()){
 </head>
 <body>
     <div class="bianco">
-                            
-    <div class="vuoto">
-                    </div>
-        <div>
-            <form action="" method="get" id="carica_pg">
-                
-                <label for="livello">Livello</label>
-                <!-- <input type="range" name="livello" id="livello" min="1" max="20"> -->
-                <!-- <select name="livello" id="livello">
-                    <?php for ($i = 1; $i <= 20; $i++) : ?>
-                        <option value="<?php 
-                                            echo $i; 
-                                        ?>">
-                            <?php
-                                echo $i; 
-                             ?>
-                        </option>
-                    <?php endfor; ?>
-                </select> -->
-                <input type="number" name="livello" id="livello" min="1" max="20">
+        <div class="vuoto">
+        </div>
 
+        <div id="carica_pg">
+            <form action="" method="get" id="carica_pg">
+                <label for="livello">Livello</label>
+                <input type="number" name="livello" id="livello" min="1" max="20">
 
                 <label for="razza">Razza</label>
                 <!-- <input type="text" name="razza" id="razza"> -->
                 <select name="razza" id="razza">
-                    <option value="none">---scegli---</option>
+                    <option value="">---scegli---</option>
                     <option value="Elfo">Elfo</option>
                     <option value="Halfling">Halfling</option>
                     <option value="Nano">Nano</option>
@@ -88,7 +72,7 @@ if(!$idUtente=isLogged()){
                 <label for="classe">Classe</label>
                 <!-- <input type="text" name="classe" id="classe"> -->
                 <select name="classe" id="classe">
-                    <option value="none">---scegli---</option>
+                    <option value="">---scegli---</option>
                     <option value="Barbaro">Barbaro</option>
                     <option value="Bardo">Bardo</option>
                     <option value="Chierico">Chierico</option>
@@ -106,11 +90,12 @@ if(!$idUtente=isLogged()){
                 <label for="sottoclasse" id="label_sottoclasse">Sottoclasse</label>
                 <!-- <input type="text" name="sottoclasse" id="sottoclasse"> -->
                 <select name="sottoclasse" id="sottoclasse" disabled>
-                    <option value="scegli una classe">---scegli una classe---</option>
+                    <option value="">---scegli una classe---</option>
                 </select>
-                
+
                 <label for="background">Background</label>
                 <select name="background" id="background">
+                    <option value="">---scegli la tua storia---</option>
                     <option value="Accolito">Accolito</option>
                     <option value="Artigiano della Gilda">Artigiano della Gilda</option>
                     <option value="Ciarlatano">Ciarlatano</option>
@@ -124,23 +109,30 @@ if(!$idUtente=isLogged()){
                     <option value="Nobile">Nobile</option>
                     <option value="Sapiente">Sapiente</option>
                     <option value="Soldato">Soldato</option>
-
-
                 </select>
 
                 <input type="submit" value="Invia">
-                
             </form>
+            <?php
+            if(isset($errore)){
+                echo "<div>'$errore'</div>";
+            }
+            ?>
         </div>
-                            
+                                
         <div class="vuoto">
-                    </div>
+        </div>
+
         <div id="ricevi_tuoi_pg">
+            
+        </div>
 
-        </div id="ricevi_altri_pg">
+        <div id="ricevi_altri_pg">
+            <button id="bottone_altri">PREMIMI</button>
+        </div>
+    </div>       
 
-        <div>
-    </div>
+
 
 
     <div class="giallo">

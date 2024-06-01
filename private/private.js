@@ -1,13 +1,12 @@
 const form_spotify = document.querySelector('#form_spotify');
 form_spotify.addEventListener('submit', ricerca_spotify);
 
-async function ricerca_spotify(event){
+const spotify_fetch_endpoint="../apis/spotify/spotify.php"
+
+function ricerca_spotify(event){
     event.preventDefault();
-    let spotify_endpoint = '../apis/spotify/spotify.php?type=';
     let tipo = document.querySelector("#tipo_spotify").value;
-
-
-    spotify_endpoint = spotify_endpoint + tipo + '&q=';
+    let spotify_endpoint = spotify_fetch_endpoint + "?type="+ tipo + '&q=';
 
 
     const input = document.querySelector("#input_spotify");
@@ -121,7 +120,8 @@ function onJsonSpotify(json){
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-const form_carica_pg = document.querySelector("#carica_pg").addEventListener("submit", Carica_pg);
+const form_carica_pg = document.querySelector("#carica_pg");
+form_carica_pg.addEventListener("submit", CaricaPG);
 
 let label_sottoclasse = document.querySelector("#label_sottoclasse");
 
@@ -131,7 +131,10 @@ const classe = document.querySelector("#classe");
 const sottoclasse = document.querySelector("#sottoclasse");
 const background = document.querySelector("#background");
 
+const carica_fetch_endpoint ="../apis/fetch/invia_pg.php";
+
 classe.addEventListener("change", changeSubClass);
+livello.addEventListener("change", changeSubClass);
 
 // const classe_select = document.querySelector("#classe").addEventListener("blur", changeSubClass);
 // const subclasse_select = document.querySelector("#sottoclasse");
@@ -152,13 +155,27 @@ function changeSubClass(event){
             sottoclasse.innerHTML="";
 
             opzione = document.createElement("option");
-            opzione.value="scegli una classe";
+            opzione.value=null;
             opzione.text="---scegli una classe---";
             sottoclasse.appendChild(opzione);
             
             break;
 
-        case "Barbaro":
+        case "Barbaro": //terzo livello
+            if(livello.value<3){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","");
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -179,7 +196,21 @@ function changeSubClass(event){
 
             break;
 
-        case "Bardo":
+        case "Bardo": //terzo livello
+            if(livello.value<3){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","");
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -200,7 +231,7 @@ function changeSubClass(event){
 
             break;
 
-        case "Chierico":
+        case "Chierico": //primo livello - va bene così
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -247,7 +278,21 @@ function changeSubClass(event){
 
             break;
 
-        case "Druido":
+        case "Druido": //secondo livello
+            if(livello.value<2){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","");
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -267,7 +312,21 @@ function changeSubClass(event){
 
             break;
 
-        case "Guerriero":
+        case "Guerriero": //terzo livello
+            if(livello.value<3){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","");
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -287,7 +346,21 @@ function changeSubClass(event){
 
             break;
 
-        case "Ladro":
+        case "Ladro": //terzo livello
+            if(livello.value<3){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","");
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -312,7 +385,21 @@ function changeSubClass(event){
 
             break;
 
-        case "Mago":
+        case "Mago": //secondo livello
+            if(livello.value<2){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","");
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -362,7 +449,21 @@ function changeSubClass(event){
 
             break;
 
-        case "Monaco":
+        case "Monaco": //terzo livello
+            if(livello.value<3){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","")
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -387,7 +488,21 @@ function changeSubClass(event){
 
             break;
 
-        case "Paladino":
+        case "Paladino": //terzo livello
+            if(livello.value<3){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","")
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -412,13 +527,27 @@ function changeSubClass(event){
 
             break;
 
-        case "Ranger":
+        case "Ranger": //terzo livello
+            if(livello.value<3){
+                sottoclasse.innerHTML="";
+
+                opzione = document.createElement("option");
+                opzione.value=null;
+                opzione.text="---livello troppo basso---";
+                sottoclasse.appendChild(opzione);
+                if(!sottoclasse.disabled){
+                    sottoclasse.setAttribute("disabled","")
+                }
+
+                break;
+            }
+
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
 
             label_sottoclasse.textContent="Archetipi";
-            sottoclasse.innerHTML="";
+            sottoclasse.innerHTML=null;
 
             opzione = document.createElement("option");
             opzione.value="Cacciatore";
@@ -432,7 +561,7 @@ function changeSubClass(event){
 
             break;
 
-        case "Stregone":
+        case "Stregone": //primo livello - va bene così
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -452,7 +581,7 @@ function changeSubClass(event){
 
             break;
 
-        case "Warlock":
+        case "Warlock": //primo livello - va bene così
             if(sottoclasse.disabled){
                 sottoclasse.removeAttribute("disabled");
             }
@@ -481,7 +610,7 @@ function changeSubClass(event){
 }
 
 
-async function Carica_pg(event){
+function CaricaPG(event){
     event.preventDefault();
 
     // const livello = document.querySelector("#livello");
@@ -504,27 +633,99 @@ async function Carica_pg(event){
     form.append('background', background.value);
 
 
-    fetch("../apis/fetch/invia_pg.php", {
+    fetch(carica_fetch_endpoint, {
         method:'post',
         body: form
-    }).then(onResponseCarica_pg, onErrorCarica_pg);
+    }).then(onResponseCaricaPG/*, onErrorCaricaPG*/);
 
 }
 
-function onResponseCarica_pg(response){
-    console.log("risposta ricevuta");
+function onResponseCaricaPG(response){
+    console.log("risposta di carica: ricevuta");
     console.log(response);
-    return response.json().then(onJsonCarica_pg);
+    return response.json().then(onJsonCaricaPG);
 }
 
-function onJsonCarica_pg(json){
-    if(!json.ok){
-        onErrorCarica_pg(json);
-        return null;
-    }
+function onJsonCaricaPG(json){
+    // if(!json.ok){
+    //     onErrorCaricaPG(json);
+    //     return null;
+    // }
     console.log(json);
+
+    //body
 }
 
-function onErrorCarica_pg(errore){
-    console.log(errore);
+// function onErrorCaricaPG(errore){
+//     console.log("errore caricamento: ");
+//     console.log(errore);
+// }
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+const ricevi_fetch_endpoint = "../apis/fetch/ricevi_tuoi_pg.php";
+window.addEventListener("pageshow", RiceviTuoiPg);
+form_carica_pg.addEventListener("submit", RiceviTuoiPg);
+
+function RiceviTuoiPg(event){
+
+    fetch(ricevi_fetch_endpoint, {
+        method:'post'
+    }).then(onResponseRiceviPG).then(onJsonRiceviPG);
 }
+
+function onResponseRiceviPG(response){
+    console.log("risposta di ricevimento: ricevuta");
+    console.log(response);
+    return response.json();
+}
+
+function onJsonRiceviPG(json){
+    console.log(json);
+    //body
+    
+
+}
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+
+const bottone_altri_pg=document.querySelector("#bottone_altri").addEventListener("click", RiceviAltriPG);
+const ricevi_altri_fetch_endpoint = "../apis/fetch/ricevi_altri_pg.php";
+
+function RiceviAltriPG(event){
+
+    fetch(ricevi_altri_fetch_endpoint, {
+        method:'post'
+    }).then(onResponseRiceviAltriPG/*, onErrorRiceviAltriPG*/);
+}
+
+function onResponseRiceviAltriPG(response){
+    console.log("risposta di ricevimento altrui: ricevuta");
+    console.log(response);
+    return response.json().then(onJsonRiceviAltriPG);
+}
+
+function onJsonRiceviAltriPG(json){
+    // if(json.ok!==true){
+    //     onErrorRiceviAltriPG(json);
+    //     return null;
+    // }
+    console.log(json);
+
+    //body
+}
+
+// function onErrorRiceviAltriPG(errore){
+//     console.log("errore ricevimento altrui: ");
+//     console.log(errore);
+// }
