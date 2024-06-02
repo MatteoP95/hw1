@@ -133,11 +133,11 @@ const background = document.querySelector("#background");
 
 const carica_fetch_endpoint ="../apis/fetch/invia_pg.php";
 
+const errore_caricamento = document.createElement("span");
+errore_caricamento.innerText="Personaggio non caricato!";
+
 classe.addEventListener("change", changeSubClass);
 livello.addEventListener("change", changeSubClass);
-
-// const classe_select = document.querySelector("#classe").addEventListener("blur", changeSubClass);
-// const subclasse_select = document.querySelector("#sottoclasse");
 
 function changeSubClass(event){
     const pgClass = classe.value;
@@ -612,18 +612,6 @@ function changeSubClass(event){
 
 function CaricaPG(event){
     event.preventDefault();
-
-    // const livello = document.querySelector("#livello");
-    // const razza = document.querySelector("#razza");
-    // const classe = document.querySelector("#classe");
-    // const sottoclasse = document.querySelector("#sottoclasse");
-    // const background = document.querySelector("#background");
-
-    // console.log(livello.value);
-    // console.log(razza.value);
-    // console.log(classe.value);
-    // console.log(sottoclasse.value);
-    // console.log(background.value);
     
     const form = new FormData();
     form.append('livello', livello.value);
@@ -636,30 +624,36 @@ function CaricaPG(event){
     fetch(carica_fetch_endpoint, {
         method:'post',
         body: form
-    }).then(onResponseCaricaPG/*, onErrorCaricaPG*/);
+    }).then(onResponseCaricaPG).then(onJsonCaricaPG);
 
 }
 
 function onResponseCaricaPG(response){
     console.log("risposta di carica: ricevuta");
-    console.log(response);
-    return response.json().then(onJsonCaricaPG);
+    // console.log(response);
+    return response.json();
 }
 
 function onJsonCaricaPG(json){
-    // if(!json.ok){
-    //     onErrorCaricaPG(json);
-    //     return null;
-    // }
+    if(!json.ok){
+        if(!form_carica_pg.contains(errore_caricamento)){
+            form_carica_pg.appendChild(errore_caricamento);
+            console.log("pg non caricato: ");
+            console.log(json);
+            return;
+        }
+        console.log("pg non caricato: ");
+        console.log(json);
+        return;
+    }
+    
+    if(form_carica_pg.contains(errore_caricamento)){
+        form_carica_pg.removeChild(errore_caricamento);
+    }
+    console.log("pg caricato: ");
     console.log(json);
-
-    //body
+    return;
 }
-
-// function onErrorCaricaPG(errore){
-//     console.log("errore caricamento: ");
-//     console.log(errore);
-// }
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
@@ -790,6 +784,9 @@ function onJsonRiceviPG(json){
             const br = document.createElement("br");
             tuoi_container.appendChild(br);
         }
+        else{
+
+        }
     }
 }
 
@@ -802,15 +799,16 @@ const elimina_fetch_endpoint ="../apis/fetch/elimina_tuoi_pg.php";
 function EliminaPG(event){
     console.log("vuoi davvero eliminarmi??? :(");
     
-    console.log(event.target);
+    // console.log(event.target);
 
-    console.log(event.target.id);
+    // console.log(event.target.id);
 
-    console.log(event.target.parentNode);
+    // console.log(event.target.parentNode);
 
     const form= new FormData();
     form.append('characterID', event.target.id);
 
+    console.log("NOOOOOOOOOO");
     fetch(elimina_fetch_endpoint, {
         method:'post',
         body: form
@@ -888,7 +886,7 @@ function onJsonRiceviAltriPG(json){
             pg.appendChild(classe);
 
             
-            if(info.character.subclass!==null){
+            if(info.character.subclass!=="null"){
                 const sottoclasse = document.createElement("span");
                 sottoclasse.textContent="Sottoclasse: "+info.character.subclass;
                 pg.appendChild(sottoclasse);

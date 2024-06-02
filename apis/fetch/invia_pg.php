@@ -26,7 +26,7 @@ if(!empty($_POST['livello']) && !empty($_POST['razza']) && !empty($_POST['classe
     $query = "SELECT * FROM PersonaggiCommunity WHERE livello='$livello' AND razza='$razza' AND classe='$classe' AND sottoclasse='$sottoclasse' AND background='$background'";
     $risultato = mysqli_query($dbconn, $query) or die(mysqli_error($dbconn));
     if(mysqli_num_rows($risultato)>0){
-        echo json_encode(array('ok'=>false));
+        echo json_encode(array('ok'=>false, 'error'=>'dupe'));
         mysqli_close($dbconn);
         exit;
     }
