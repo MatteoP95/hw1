@@ -12,7 +12,11 @@ $dbconn=mysqli_connect($dbsettings["host"], $dbsettings["username"], $dbsettings
 $query = "SELECT * FROM personaggicommunity WHERE id_utente = '$idUtente'";
 $risultato = mysqli_query($dbconn, $query) or die($dbconn);
 if(mysqli_num_rows($risultato) == 0){
-    echo json_encode(array('ok'=>false, 'error'=>'no creations'));
+    $errore[]=array(
+        'ok'=>false, 
+    'error'=>'no creations'
+    );
+    echo json_encode($errore);
     mysqli_close($dbconn);
     exit;
 }
@@ -28,7 +32,8 @@ while($riga=mysqli_fetch_assoc($risultato)){
             'race'=>$riga['razza'],
             'class'=>$riga['classe'],
             'subclass'=>$riga['sottoclasse'],
-            'bg'=>$riga['background']
+            'bg'=>$riga['background'],
+            'pgid'=>$riga['id']
         )
     );
 }

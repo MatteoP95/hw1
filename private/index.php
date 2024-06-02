@@ -126,6 +126,9 @@ if(!$idUtente=isLogged()){
         <div id="ricevi_tuoi_pg">
             
         </div>
+        
+        <div class="vuoto">
+        </div>
 
         <div id="ricevi_altri_pg">
             <button id="bottone_altri">PREMIMI</button>

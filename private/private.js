@@ -692,45 +692,140 @@ function onJsonRiceviPG(json){
     console.log(json);
     //body
     tuoi_container.innerHTML="";
+    let desc;
 
 
     for(let info of json){
         if(info.ok){
+            
             const pg = document.createElement("div");
             pg.classList.add("personaggi_ricevuti");
+////////////////////////////////////
 
             
-            const livello = document.createElement("span");
-            livello.textContent="Livello: "+info.character.lvl;
-            pg.appendChild(livello);
+            const livello = document.createElement("div");
+           
+            desc=document.createElement("span");
+            desc.textContent="Livello: ";
+            livello.appendChild(desc);
 
+            desc=document.createElement("span");
+            desc.textContent=info.character.lvl;
+            livello.appendChild(desc);
+
+            livello.setAttribute("id", "livello");
+            pg.appendChild(livello);
+////////////////////////////////////
 
             const razza = document.createElement("span");
-            razza.textContent="Razza: "+info.character.race;
-            pg.appendChild(razza);
 
+            desc=document.createElement("span");
+            desc.textContent="Razza: ";
+            razza.appendChild(desc);
+
+            desc=document.createElement("span");
+            desc.textContent=info.character.race;
+            razza.appendChild(desc);
+
+            razza.setAttribute("id", "razza");
+            pg.appendChild(razza);
+////////////////////////////////////
 
             const classe = document.createElement("span");
-            classe.textContent="Classe: "+info.character.class;
+
+            desc=document.createElement("span");
+            desc.textContent="Classe: ";
+            classe.appendChild(desc);
+
+            desc=document.createElement("span");
+            desc.textContent=info.character.class;
+            classe.appendChild(desc);
+
+            classe.setAttribute("id", "classe");
             pg.appendChild(classe);
+////////////////////////////////////
 
             
-            if(info.character.subclass!==null){
+            if(info.character.subclass!=="null"){
                 const sottoclasse = document.createElement("span");
-                sottoclasse.textContent="Sottoclasse: "+info.character.subclass;
+
+                desc=document.createElement("span");
+                desc.textContent="Sottoclasse: ";
+                sottoclasse.appendChild(desc);
+    
+                desc=document.createElement("span");
+                desc.textContent=info.character.subclass;
+                sottoclasse.appendChild(desc);
+                
+                sottoclasse.setAttribute("id", "sottoclasse");
                 pg.appendChild(sottoclasse);
             }
+////////////////////////////////////
 
             const background = document.createElement("span");
-            background.textContent="Origini: "+info.character.bg;
+
+            desc=document.createElement("span");
+            desc.textContent="Origini: ";
+            background.appendChild(desc);
+
+            desc=document.createElement("span");
+            desc.textContent=info.character.bg;
+            background.appendChild(desc);
+
+            background.setAttribute("id", "background");
             pg.appendChild(background);
+////////////////////////////////////
 
-
+            
+            const bottone_elimina = document.createElement("button");
+            bottone_elimina.classList.add("eliminami");
+            bottone_elimina.innerText="elimina il personaggio";
+            bottone_elimina.setAttribute("id", info.character.pgid);
+            bottone_elimina.addEventListener("click", EliminaPG);
+            bottone_elimina.addEventListener("click", RiceviTuoiPg);
+            pg.appendChild(bottone_elimina);
 
             tuoi_container.appendChild(pg);
+
+            const br = document.createElement("br");
+            tuoi_container.appendChild(br);
         }
     }
+}
 
+let lista_bottoni;
+
+
+
+const elimina_fetch_endpoint ="../apis/fetch/elimina_tuoi_pg.php";
+
+function EliminaPG(event){
+    console.log("vuoi davvero eliminarmi??? :(");
+    
+    console.log(event.target);
+
+    console.log(event.target.id);
+
+    console.log(event.target.parentNode);
+
+    const form= new FormData();
+    form.append('characterID', event.target.id);
+
+    fetch(elimina_fetch_endpoint, {
+        method:'post',
+        body: form
+    }).then(onResponseEliminaPG).then(onJsonEliminaPG);
+}
+
+function onResponseEliminaPG(response){
+    console.log("response di eliminazione ricevuta: ");
+    console.log(response);
+    return response.json()
+}
+
+function onJsonEliminaPG(json){
+    console.log("json di eliminazione ricevuto: ");
+    console.log(json);
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -760,6 +855,11 @@ function onJsonRiceviAltriPG(json){
     console.log(json);
     //body
     altri_container.innerHTML="";
+    const bottone_altri_nuovo=document.createElement("button");
+    bottone_altri_nuovo.setAttribute("id", "bottone_altri");
+    bottone_altri_nuovo.addEventListener("click", RiceviAltriPG);
+    bottone_altri_nuovo.innerText="PREMIMI";
+    altri_container.appendChild(bottone_altri_nuovo);
 
 
     for(let info of json){
@@ -767,7 +867,7 @@ function onJsonRiceviAltriPG(json){
             const pg = document.createElement("div");
             pg.classList.add("personaggi_ricevuti");
 
-            
+
             const creatore = document.createElement("span");
             creatore.textContent="Creato da: "+info.character.username;
             pg.appendChild(creatore);
@@ -799,8 +899,9 @@ function onJsonRiceviAltriPG(json){
             pg.appendChild(background);
 
 
-
             altri_container.appendChild(pg);
+            const br = document.createElement("br");
+            tuoi_container.appendChild(br);
         }
     }
     //body
