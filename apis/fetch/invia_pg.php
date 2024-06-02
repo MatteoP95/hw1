@@ -41,7 +41,7 @@ if(!empty($_POST['livello']) && !empty($_POST['razza']) && !empty($_POST['classe
     $risultato = mysqli_query($dbconn, $query);
     if($risultato){
         echo json_encode(array('ok'=>true));
-        mysqli_free_result($risultato);
+        // mysqli_free_result($risultato);
         mysqli_close($dbconn);
         exit;
     }

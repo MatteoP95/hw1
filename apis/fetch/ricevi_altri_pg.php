@@ -20,13 +20,16 @@ if(mysqli_num_rows($risultato) == 0){
 $arrayPG=array();
 while($riga=mysqli_fetch_assoc($risultato)){
     $arrayPG[]=array(
-        'userid'=>$riga['id_utente'],
-        'username'=>$riga['nome_utente'],
-        'lvl'=>$riga['livello'],
-        'race'=>$riga['razza'],
-        'class'=>$riga['classe'],
-        'subclass'=>$riga['sottoclasse'],
-        'bg'=>$riga['background']
+        'ok'=>true,
+        'character'=>array(
+            'userid'=>$riga['id_utente'],
+            'username'=>$riga['nome_utente'],
+            'lvl'=>$riga['livello'],
+            'race'=>$riga['razza'],
+            'class'=>$riga['classe'],
+            'subclass'=>$riga['sottoclasse'],
+            'bg'=>$riga['background']
+        )
     );
 }
 

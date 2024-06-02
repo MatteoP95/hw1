@@ -43,3 +43,10 @@
     justify-content: center;
     align-items: center;
 }
+
+.personaggi_ricevuti{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

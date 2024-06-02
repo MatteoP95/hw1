@@ -673,6 +673,7 @@ function onJsonCaricaPG(json){
 const ricevi_fetch_endpoint = "../apis/fetch/ricevi_tuoi_pg.php";
 window.addEventListener("pageshow", RiceviTuoiPg);
 form_carica_pg.addEventListener("submit", RiceviTuoiPg);
+const tuoi_container=document.querySelector("#ricevi_tuoi_pg");
 
 function RiceviTuoiPg(event){
 
@@ -690,7 +691,45 @@ function onResponseRiceviPG(response){
 function onJsonRiceviPG(json){
     console.log(json);
     //body
-    
+    tuoi_container.innerHTML="";
+
+
+    for(let info of json){
+        if(info.ok){
+            const pg = document.createElement("div");
+            pg.classList.add("personaggi_ricevuti");
+
+            
+            const livello = document.createElement("span");
+            livello.textContent="Livello: "+info.character.lvl;
+            pg.appendChild(livello);
+
+
+            const razza = document.createElement("span");
+            razza.textContent="Razza: "+info.character.race;
+            pg.appendChild(razza);
+
+
+            const classe = document.createElement("span");
+            classe.textContent="Classe: "+info.character.class;
+            pg.appendChild(classe);
+
+            
+            if(info.character.subclass!==null){
+                const sottoclasse = document.createElement("span");
+                sottoclasse.textContent="Sottoclasse: "+info.character.subclass;
+                pg.appendChild(sottoclasse);
+            }
+
+            const background = document.createElement("span");
+            background.textContent="Origini: "+info.character.bg;
+            pg.appendChild(background);
+
+
+
+            tuoi_container.appendChild(pg);
+        }
+    }
 
 }
 //////////////////////////////////////////////////
@@ -701,6 +740,8 @@ function onJsonRiceviPG(json){
 
 const bottone_altri_pg=document.querySelector("#bottone_altri").addEventListener("click", RiceviAltriPG);
 const ricevi_altri_fetch_endpoint = "../apis/fetch/ricevi_altri_pg.php";
+const altri_container=document.querySelector("#ricevi_altri_pg");
+
 
 function RiceviAltriPG(event){
 
@@ -716,12 +757,52 @@ function onResponseRiceviAltriPG(response){
 }
 
 function onJsonRiceviAltriPG(json){
-    // if(json.ok!==true){
-    //     onErrorRiceviAltriPG(json);
-    //     return null;
-    // }
     console.log(json);
+    //body
+    altri_container.innerHTML="";
 
+
+    for(let info of json){
+        if(info.ok){
+            const pg = document.createElement("div");
+            pg.classList.add("personaggi_ricevuti");
+
+            
+            const creatore = document.createElement("span");
+            creatore.textContent="Creato da: "+info.character.username;
+            pg.appendChild(creatore);
+            
+
+            const livello = document.createElement("span");
+            livello.textContent="Livello: "+info.character.lvl;
+            pg.appendChild(livello);
+
+
+            const razza = document.createElement("span");
+            razza.textContent="Razza: "+info.character.race;
+            pg.appendChild(razza);
+
+
+            const classe = document.createElement("span");
+            classe.textContent="Classe: "+info.character.class;
+            pg.appendChild(classe);
+
+            
+            if(info.character.subclass!==null){
+                const sottoclasse = document.createElement("span");
+                sottoclasse.textContent="Sottoclasse: "+info.character.subclass;
+                pg.appendChild(sottoclasse);
+            }
+
+            const background = document.createElement("span");
+            background.textContent="Origini: "+info.character.bg;
+            pg.appendChild(background);
+
+
+
+            altri_container.appendChild(pg);
+        }
+    }
     //body
 }
 
