@@ -122,6 +122,8 @@ function onJsonSpotify(json){
 
 const form_carica_pg = document.querySelector("#carica_pg");
 form_carica_pg.addEventListener("submit", CaricaPG);
+form_carica_pg.addEventListener("submit", RiceviTuoiPg);
+
 
 let label_sottoclasse = document.querySelector("#label_sottoclasse");
 
@@ -677,120 +679,73 @@ function RiceviTuoiPg(event){
 }
 
 function onResponseRiceviPG(response){
-    console.log("risposta di ricevimento: ricevuta");
+    console.log("risposta di ricevimento propri pg:");
     console.log(response);
     return response.json();
 }
 
 function onJsonRiceviPG(json){
     console.log(json);
-    //body
     tuoi_container.innerHTML="";
-    let desc;
 
-
-    for(let info of json){
-        if(info.ok){
+    if(json.ok){
+        console.log("ci siamo");
+        
+        for(let personaggio of json.characters){
             
             const pg = document.createElement("div");
-            pg.classList.add("personaggi_ricevuti");
-////////////////////////////////////
+            pg.classList.add("personaggio_ricevuto");
 
-            
-            const livello = document.createElement("div");
-           
-            desc=document.createElement("span");
-            desc.textContent="Livello: ";
-            livello.appendChild(desc);
+            pg.appendChild(document.createElement("br"));
 
-            desc=document.createElement("span");
-            desc.textContent=info.character.lvl;
-            livello.appendChild(desc);
+    ////////////////////////////////////
+            const livello = document.createElement("span");
+        
+            livello.textContent="Livello: "+personaggio.info.lvl;
 
-            livello.setAttribute("id", "livello");
             pg.appendChild(livello);
-////////////////////////////////////
-
+    ////////////////////////////////////
             const razza = document.createElement("span");
 
-            desc=document.createElement("span");
-            desc.textContent="Razza: ";
-            razza.appendChild(desc);
+            razza.textContent="Razza: "+personaggio.info.race;
 
-            desc=document.createElement("span");
-            desc.textContent=info.character.race;
-            razza.appendChild(desc);
-
-            razza.setAttribute("id", "razza");
             pg.appendChild(razza);
-////////////////////////////////////
-
+    ////////////////////////////////////
             const classe = document.createElement("span");
 
-            desc=document.createElement("span");
-            desc.textContent="Classe: ";
-            classe.appendChild(desc);
+            classe.textContent="Classe: "+personaggio.info.class;
 
-            desc=document.createElement("span");
-            desc.textContent=info.character.class;
-            classe.appendChild(desc);
-
-            classe.setAttribute("id", "classe");
             pg.appendChild(classe);
-////////////////////////////////////
-
-            
-            if(info.character.subclass!=="null"){
+    ////////////////////////////////////
+            if(personaggio.info.subclass!=="null"){
                 const sottoclasse = document.createElement("span");
 
-                desc=document.createElement("span");
-                desc.textContent="Sottoclasse: ";
-                sottoclasse.appendChild(desc);
-    
-                desc=document.createElement("span");
-                desc.textContent=info.character.subclass;
-                sottoclasse.appendChild(desc);
-                
-                sottoclasse.setAttribute("id", "sottoclasse");
+                sottoclasse.textContent="Sottoclasse: "+personaggio.info.subclass;
+
                 pg.appendChild(sottoclasse);
             }
-////////////////////////////////////
-
+    ////////////////////////////////////
             const background = document.createElement("span");
 
-            desc=document.createElement("span");
-            desc.textContent="Origini: ";
-            background.appendChild(desc);
+            background.textContent="Origini: "+personaggio.info.bg;
 
-            desc=document.createElement("span");
-            desc.textContent=info.character.bg;
-            background.appendChild(desc);
-
-            background.setAttribute("id", "background");
             pg.appendChild(background);
-////////////////////////////////////
-
-            
+    ////////////////////////////////////
             const bottone_elimina = document.createElement("button");
             bottone_elimina.classList.add("eliminami");
             bottone_elimina.innerText="elimina il personaggio";
-            bottone_elimina.setAttribute("id", info.character.pgid);
+            bottone_elimina.setAttribute("id", personaggio.info.pgid);
             bottone_elimina.addEventListener("click", EliminaPG);
             bottone_elimina.addEventListener("click", RiceviTuoiPg);
             pg.appendChild(bottone_elimina);
+            pg.appendChild(document.createElement("br"));
 
             tuoi_container.appendChild(pg);
-
-            const br = document.createElement("br");
-            tuoi_container.appendChild(br);
-        }
-        else{
 
         }
     }
 }
 
-let lista_bottoni;
 
 
 
@@ -844,7 +799,7 @@ function RiceviAltriPG(event){
 }
 
 function onResponseRiceviAltriPG(response){
-    console.log("risposta di ricevimento altrui: ricevuta");
+    console.log("risposta di ricevimento altri pg:");
     console.log(response);
     return response.json().then(onJsonRiceviAltriPG);
 }
@@ -853,59 +808,57 @@ function onJsonRiceviAltriPG(json){
     console.log(json);
     //body
     altri_container.innerHTML="";
-    const bottone_altri_nuovo=document.createElement("button");
-    bottone_altri_nuovo.setAttribute("id", "bottone_altri");
-    bottone_altri_nuovo.addEventListener("click", RiceviAltriPG);
-    bottone_altri_nuovo.innerText="PREMIMI";
-    altri_container.appendChild(bottone_altri_nuovo);
+    // const bottone_altri_nuovo=document.createElement("button");
+    // bottone_altri_nuovo.setAttribute("id", "bottone_altri");
+    // bottone_altri_nuovo.addEventListener("click", RiceviAltriPG);
+    // bottone_altri_nuovo.innerText="PREMIMI";
+    // altri_container.appendChild(bottone_altri_nuovo);
 
 
-    for(let info of json){
-        if(info.ok){
+        if(json.ok){
+        console.log("ci siamo");
+        for(let personaggio of json.characters){
+
             const pg = document.createElement("div");
-            pg.classList.add("personaggi_ricevuti");
+            pg.classList.add("personaggio_ricevuto");
+
+            pg.appendChild(document.createElement("br"));
 
 
             const creatore = document.createElement("span");
-            creatore.textContent="Creato da: "+info.character.username;
+            creatore.textContent="Creato da: "+personaggio.info.username;
             pg.appendChild(creatore);
             
 
             const livello = document.createElement("span");
-            livello.textContent="Livello: "+info.character.lvl;
+            livello.textContent="Livello: "+personaggio.info.lvl;
             pg.appendChild(livello);
 
 
             const razza = document.createElement("span");
-            razza.textContent="Razza: "+info.character.race;
+            razza.textContent="Razza: "+personaggio.info.race;
             pg.appendChild(razza);
 
 
             const classe = document.createElement("span");
-            classe.textContent="Classe: "+info.character.class;
+            classe.textContent="Classe: "+personaggio.info.class;
             pg.appendChild(classe);
 
             
-            if(info.character.subclass!=="null"){
+            if(personaggio.info.subclass!=="null"){
                 const sottoclasse = document.createElement("span");
-                sottoclasse.textContent="Sottoclasse: "+info.character.subclass;
+                sottoclasse.textContent="Sottoclasse: "+personaggio.info.subclass;
                 pg.appendChild(sottoclasse);
             }
 
             const background = document.createElement("span");
-            background.textContent="Origini: "+info.character.bg;
+            background.textContent="Origini: "+personaggio.info.bg;
             pg.appendChild(background);
+
+            pg.appendChild(document.createElement("br"));
 
 
             altri_container.appendChild(pg);
-            const br = document.createElement("br");
-            tuoi_container.appendChild(br);
         }
     }
-    //body
 }
-
-// function onErrorRiceviAltriPG(errore){
-//     console.log("errore ricevimento altrui: ");
-//     console.log(errore);
-// }

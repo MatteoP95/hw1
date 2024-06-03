@@ -123,15 +123,20 @@ if(!$idUtente=isLogged()){
         <div class="vuoto">
         </div>
 
-        <div id="ricevi_tuoi_pg">
+        <div id="spazio_pg_propri">
+            <div id="ricevi_tuoi_pg">
             
+            </div>
         </div>
         
         <div class="vuoto">
         </div>
 
-        <div id="ricevi_altri_pg">
-            <button id="bottone_altri">PREMIMI</button>
+        <div id="spazio_pg_community">
+            <button id="bottone_altri">Mostra i PG della Comminity</button>
+
+            <div id="ricevi_altri_pg">
+            </div>
         </div>
     </div>       
 

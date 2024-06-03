@@ -44,7 +44,7 @@
     align-items: center;
 }
 
-.personaggi_ricevuti{
+.personaggio_ricevuto{
     display: flex;
     flex-direction: column;
     justify-content: center;

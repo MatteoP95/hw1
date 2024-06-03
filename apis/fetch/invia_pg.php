@@ -30,6 +30,8 @@ if(!empty($_POST['livello']) && !empty($_POST['razza']) && !empty($_POST['classe
         mysqli_close($dbconn);
         exit;
     }
+    mysqli_free_result($risultato);
+
     
     $query = "SELECT nome_utente FROM Utenti WHERE id = '$idUtente'";
     $risultato = mysqli_query($dbconn, $query);
@@ -37,11 +39,11 @@ if(!empty($_POST['livello']) && !empty($_POST['razza']) && !empty($_POST['classe
     $nomeUtente = $riga['nome_utente'];
     $nomeUtente = mysqli_real_escape_string($dbconn, $nomeUtente);
     
+
     $query = "INSERT INTO PersonaggiCommunity(id_utente, nome_utente, livello, razza, classe, sottoclasse, background) VALUES('$idUtente', '$nomeUtente', '$livello', '$razza', '$classe', '$sottoclasse', '$background')";
     $risultato = mysqli_query($dbconn, $query);
     if($risultato){
         echo json_encode(array('ok'=>true));
-        // mysqli_free_result($risultato);
         mysqli_close($dbconn);
         exit;
     }

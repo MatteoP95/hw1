@@ -24,21 +24,27 @@ if(mysqli_num_rows($risultato) == 0){
 $arrayPG=array();
 while($riga=mysqli_fetch_assoc($risultato)){
     $arrayPG[]=array(
-        'ok'=>true,
-        'character'=>array(
+        'info'=>array(
+            'pgid'=>$riga['id'],
             'userid'=>$riga['id_utente'],
             'username'=>$riga['nome_utente'],
             'lvl'=>$riga['livello'],
             'race'=>$riga['razza'],
             'class'=>$riga['classe'],
             'subclass'=>$riga['sottoclasse'],
-            'bg'=>$riga['background'],
-            'pgid'=>$riga['id']
+            'bg'=>$riga['background']
         )
     );
 }
+$json=array(
+    'ok'=>true,
+    'characters'=>$arrayPG,
+    'lenght'=>sizeof($arrayPG)
+);
 
-echo json_encode($arrayPG);
+
+
+echo json_encode($json);
 mysqli_free_result($risultato);
 mysqli_close($dbconn);
 exit;
