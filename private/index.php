@@ -57,58 +57,64 @@ if(!$idUtente=isLogged()){
                 <label for="razza">Razza</label>
                 <!-- <input type="text" name="razza" id="razza"> -->
                 <select name="razza" id="razza">
-                    <option value="">---scegli---</option>
-                    <option value="Elfo">Elfo</option>
-                    <option value="Halfling">Halfling</option>
-                    <option value="Nano">Nano</option>
-                    <option value="Umano">Umano</option>
-                    <option value="Dragonide">Dragonide</option>
-                    <option value="Gnomo">Gnomo</option>
-                    <option value="Mezzelfo">Mezzelfo</option>
-                    <option value="Mezzorco">Mezzorco</option>
-                    <option value="Tiefling">Tiefling</option>
+                    <optgroup label="Tutte le Razze:">
+                        <option value="Elfo">Elfo</option>
+                        <option value="Halfling">Halfling</option>
+                        <option value="Nano">Nano</option>
+                        <option value="Umano">Umano</option>
+                        <option value="Dragonide">Dragonide</option>
+                        <option value="Gnomo">Gnomo</option>
+                        <option value="Mezzelfo">Mezzelfo</option>
+                        <option value="Mezzorco">Mezzorco</option>
+                        <option value="Tiefling">Tiefling</option>
+                    </optgroup>
                 </select>
 
                 <label for="classe">Classe</label>
                 <!-- <input type="text" name="classe" id="classe"> -->
                 <select name="classe" id="classe">
-                    <option value="">---scegli---</option>
-                    <option value="Barbaro">Barbaro</option>
-                    <option value="Bardo">Bardo</option>
-                    <option value="Chierico">Chierico</option>
-                    <option value="Druido">Druido</option>
-                    <option value="Guerriero">Guerriero</option>
-                    <option value="Ladro">Ladro</option>
-                    <option value="Mago">Mago</option>
-                    <option value="Monaco">Monaco</option>
-                    <option value="Paladino">Paladino</option>
-                    <option value="Ranger">Ranger</option>
-                    <option value="Stregone">Stregone</option>
-                    <option value="Warlock">Warlock</option>
+                    <optgroup label="Tutte le Classi:">
+                        <option value="Barbaro">Barbaro</option>
+                        <option value="Bardo">Bardo</option>
+                        <option value="Chierico">Chierico</option>
+                        <option value="Druido">Druido</option>
+                        <option value="Guerriero">Guerriero</option>
+                        <option value="Ladro">Ladro</option>
+                        <option value="Mago">Mago</option>
+                        <option value="Monaco">Monaco</option>
+                        <option value="Paladino">Paladino</option>
+                        <option value="Ranger">Ranger</option>
+                        <option value="Stregone">Stregone</option>
+                        <option value="Warlock">Warlock</option>
+                    </optgroup>
                 </select>
                 
                 <label for="sottoclasse" id="label_sottoclasse">Sottoclasse</label>
                 <!-- <input type="text" name="sottoclasse" id="sottoclasse"> -->
                 <select name="sottoclasse" id="sottoclasse" disabled>
-                    <option value="">---scegli una classe---</option>
+                    <optgroup label="Tutte le Sottoclassi:" id="gruppo_opzioni_sottoclasse">
+                        <option value="">---scegli una classe---</option>   
+                    </optgroup>
                 </select>
 
-                <label for="background">Background</label>
+                <label for="background">Origini</label>
                 <select name="background" id="background">
-                    <option value="">---scegli la tua storia---</option>
-                    <option value="Accolito">Accolito</option>
-                    <option value="Artigiano della Gilda">Artigiano della Gilda</option>
-                    <option value="Ciarlatano">Ciarlatano</option>
-                    <option value="Criminale">Criminale</option>
-                    <option value="Eremita">Eremita</option>
-                    <option value="Eroe Popolare">Eroe Popolare</option>
-                    <option value="Forestiero">Forestiero</option>
-                    <option value="Intrattenitore">Intrattenitore</option>
-                    <option value="Marinaio">Marinaio</option>
-                    <option value="Monello">Monello</option>
-                    <option value="Nobile">Nobile</option>
-                    <option value="Sapiente">Sapiente</option>
-                    <option value="Soldato">Soldato</option>
+                    <optgroup label="Tutte le Origini:">
+                        <option value="Accolito">Accolito</option>
+                        <option value="Artigiano della Gilda">Artigiano della Gilda</option>
+                        <option value="Ciarlatano">Ciarlatano</option>
+                        <option value="Criminale">Criminale</option>
+                        <option value="Eremita">Eremita</option>
+                        <option value="Eroe Popolare">Eroe Popolare</option>
+                        <option value="Forestiero">Forestiero</option>
+                        <option value="Intrattenitore">Intrattenitore</option>
+                        <option value="Marinaio">Marinaio</option>
+                        <option value="Monello">Monello</option>
+                        <option value="Nobile">Nobile</option>
+                        <option value="Sapiente">Sapiente</option>
+                        <option value="Soldato">Soldato</option>
+                    </optgroup>
+
                 </select>
 
                 <input type="submit" value="Invia" id="invia_nuovo_pg">
@@ -133,7 +139,7 @@ if(!$idUtente=isLogged()){
         </div>
 
         <div id="spazio_pg_community">
-            <button id="bottone_altri">Mostra i PG della Comminity</button>
+            <button id="bottone_altri">Mostra i PG della Community</button>
 
             <div id="ricevi_altri_pg">
             </div>
@@ -161,18 +167,17 @@ if(!$idUtente=isLogged()){
 <!-- action="javascript:;" onsubmit="ricerca_spotify(event)"  -->
                         <form id="form_spotify">
                             <select name="tipo" id="type_spotify">
-                                <option value="">
-                                    ---scegli---
-                                </option>
-                                <option value="artist">
-                                    Artista
-                                </option>
-                                <option value="album">
-                                    Album
-                                </option>
-                                <option value="track">
-                                    Canzone
-                                </option>
+                                <optgroup label="Tipo di Ricerca">
+                                    <option value="artist">
+                                        Artisti
+                                    </option>
+                                    <option value="album">
+                                        Album
+                                    </option>
+                                    <option value="track">
+                                        Canzoni
+                                    </option>
+                                </optgroup>
                             </select>
                           <input type='text' id='q_spotify' placeholder="Scrivi qui">
                           <input class="bottone_ricerca" type='submit'  value='Cerca'>
