@@ -123,7 +123,7 @@ const classe = document.querySelector("#classe");
 const sottoclasse = document.querySelector("#sottoclasse");
 const background = document.querySelector("#background");
 
-const carica_fetch_endpoint ="../apis/fetch/invia_pg.php";
+const carica_fetch_endpoint ="../apis/wikifake/invia_pg.php";
 
 const errore_caricamento = document.createElement("span");
 errore_caricamento.innerText="Personaggio non caricato!";
@@ -650,7 +650,7 @@ function onJsonCaricaPG(json){
 
 //////////////////////////////////////////////////////////////////////////
 
-const ricevi_fetch_endpoint = "../apis/fetch/ricevi_tuoi_pg.php";
+const ricevi_fetch_endpoint = "../apis/wikifake/ricevi_tuoi_pg.php";
 window.addEventListener("pageshow", RiceviTuoiPg);
 const tuoi_container=document.querySelector("#ricevi_tuoi_pg");
 
@@ -722,7 +722,7 @@ function onJsonRiceviPG(json){
 
 //////////////////////////////////////////////////////////////////////////
 
-const elimina_fetch_endpoint ="../apis/fetch/elimina_tuoi_pg.php";
+const elimina_fetch_endpoint ="../apis/wikifake/elimina_tuoi_pg.php";
 
 function EliminaPG(event){
     console.log("vuoi davvero eliminarmi??? :(");
@@ -751,7 +751,7 @@ function onJsonEliminaPG(json){
 //////////////////////////////////////////////////////////////////////////
 
 const bottone_altri_pg=document.querySelector("#bottone_altri").addEventListener("click", RiceviAltriPG);
-const ricevi_altri_fetch_endpoint = "../apis/fetch/ricevi_altri_pg.php";
+const ricevi_altri_fetch_endpoint = "../apis/wikifake/ricevi_altri_pg.php";
 const altri_container=document.querySelector("#ricevi_altri_pg");
 
 
