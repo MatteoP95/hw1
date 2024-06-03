@@ -111,7 +111,7 @@ if(!$idUtente=isLogged()){
                     <option value="Soldato">Soldato</option>
                 </select>
 
-                <input type="submit" value="Invia">
+                <input type="submit" value="Invia" id="invia_nuovo_pg">
             </form>
             <?php
             if(isset($errore)){
@@ -160,7 +160,7 @@ if(!$idUtente=isLogged()){
                     <div class="sezione_dx_top">
 <!-- action="javascript:;" onsubmit="ricerca_spotify(event)"  -->
                         <form id="form_spotify">
-                            <select name="tipo" id="tipo_spotify">
+                            <select name="tipo" id="type_spotify">
                                 <option value="">
                                     ---scegli---
                                 </option>
@@ -174,7 +174,7 @@ if(!$idUtente=isLogged()){
                                     Canzone
                                 </option>
                             </select>
-                          <input type='text' id='input_spotify' placeholder="Scrivi qui">
+                          <input type='text' id='q_spotify' placeholder="Scrivi qui">
                           <input class="bottone_ricerca" type='submit'  value='Cerca'>
                         </form>
                     

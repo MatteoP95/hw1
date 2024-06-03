@@ -5,19 +5,19 @@ const spotify_fetch_endpoint="../apis/spotify/spotify.php"
 
 function ricerca_spotify(event){
     event.preventDefault();
-    let tipo = document.querySelector("#tipo_spotify").value;
-    let spotify_endpoint = spotify_fetch_endpoint + "?type="+ tipo + '&q=';
 
+    const tipo = document.querySelector("#type_spotify").value;
 
-    const input = document.querySelector("#input_spotify");
-    const value = encodeURIComponent(input.value);
+    const q = document.querySelector("#q_spotify").value;
+
+    const form = new FormData();
+    form.append('type', tipo);
+    form.append('q', q);
     
-    fetch(spotify_endpoint + value,{
-            // headers:{
-            //     'Authorization': 'Bearer '+ token
-            // }
-        }
-    ).then(onResponseSpotify).then(onJsonSpotify);
+    fetch(spotify_fetch_endpoint, {
+        method:'post',
+        body: form
+    }).then(onResponseSpotify).then(onJsonSpotify);
 }
 
 function onResponseSpotify(response){
@@ -34,96 +34,86 @@ function onJsonSpotify(json){
     console.log("json ricevuto:");
     console.log(json);
 
-    const library = document.querySelector('#contenuto_spotify');
-    library.innerHTML = '';
+    const elenco_canzoni = document.querySelector('#contenuto_spotify');
+    elenco_canzoni.innerHTML = '';
 
+    const name=Object.keys(json)[0];  
+    console.log(name);
 
+    switch(name){
+        default:
+            const errore = document.createElement("span");
+            errore.classList.add("errore");
+            errore.textContent="errore nel caricamento dei dati";
+        break;
+            
+        case "albums":
+            for(let risultato of json.albums.items){
+                if(risultato.images.length>0) {
+        
+                    const album = document.createElement("div");
+                    album.classList.add("album");
+            
+                    const img = document.createElement("img");
+                    img.src=risultato.images[0].url;
+            
+                    const caption=document.createElement("span");
+                    caption.textContent=risultato.name;
+            
+                    album.appendChild(img);
+                    album.appendChild(caption);
+                    elenco_canzoni.appendChild(album);
+                }
+            }
+        break;
 
-    if(json.albums){
-        const risultati= json.albums.items;
+        case "artists":
+            for(let risultato of json.artists.items){
+                if(risultato.images.length>0) {
+        
+                    const artist = document.createElement("div");
+                    artist.classList.add("artista");
+            
+                    const img = document.createElement("img");
+                    img.src=risultato.images[0].url;
+            
+                    const caption=document.createElement("span");
+                    caption.textContent=risultato.name;
+            
+                    artist.appendChild(img);
+                    artist.appendChild(caption);
+                    elenco_canzoni.appendChild(artist);
+                }
+            }
+        break;
 
-        let num_risultati = risultati.length;
-    
-        for(let i=0; i<num_risultati; i++){
-            const album_data= risultati[i];
-            const immagine= album_data.images[0].url;
-            const titolo = album_data.name;
-    
-    
-            const album = document.createElement('div');
-            album.classList.add('album');
-    
-            const img = document.createElement('img');
-            img.src=immagine;
-    
-            const caption=document.createElement('span');
-            caption.textContent=titolo;
-    
-            album.appendChild(img);
-            album.appendChild(caption);
-            library.appendChild(album);
-        }    
-    }
-    else if(json.artists){
-        const risultati= json.artists.items;
-
-        let num_risultati = risultati.length;
-
-        for(let i=0; i<num_risultati; i++){
-            const artist_data= risultati[i];
-            const immagine= artist_data.images[0].url;
-            const titolo = artist_data.name;
-    
-    
-            const artist = document.createElement('div');
-            artist.classList.add('artista');
-    
-            const img = document.createElement('img');
-            img.src=immagine;
-    
-            const caption=document.createElement('span');
-            caption.textContent=titolo;
-    
-            artist.appendChild(img);
-            artist.appendChild(caption);
-            library.appendChild(artist);
-        }  
-    }
-    else if(json.tracks){
-        const risultati= json.tracks.items;
-
-        let num_risultati = risultati.length;
-
-        for(let i=0; i<num_risultati; i++){
-            const track_data= risultati[i];
-            const immagine= track_data.album.images[0].url;
-            const titolo = track_data.name;
-    
-    
-            const track = document.createElement('div');
-            track.classList.add('canzone');
-    
-            const img = document.createElement('img');
-            img.src=immagine;
-    
-            const caption=document.createElement('span');
-            caption.textContent=titolo;
-    
-            track.appendChild(img);
-            track.appendChild(caption);
-            library.appendChild(track);
-        }  
+        case "tracks":
+            for(let risultato of json.tracks.items){
+                if(risultato.album.images.length>0) {
+        
+                    const track = document.createElement("div");
+                    track.classList.add("canzone");
+            
+                    const img = document.createElement("img");
+                    img.src=risultato.album.images[0].url;
+            
+                    const caption=document.createElement("span");
+                    caption.textContent=risultato.name;
+            
+                    track.appendChild(img);
+                    track.appendChild(caption);
+                    elenco_canzoni.appendChild(track);
+                }
+            }
+        break;
     }
 }
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////
 
 const form_carica_pg = document.querySelector("#carica_pg");
 form_carica_pg.addEventListener("submit", CaricaPG);
 form_carica_pg.addEventListener("submit", RiceviTuoiPg);
-
 
 let label_sottoclasse = document.querySelector("#label_sottoclasse");
 
@@ -611,6 +601,7 @@ function changeSubClass(event){
 
 }
 
+//////////////////////////////////////////////////////////////////////////
 
 function CaricaPG(event){
     event.preventDefault();
@@ -658,17 +649,9 @@ function onJsonCaricaPG(json){
 }
 
 //////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
 
 const ricevi_fetch_endpoint = "../apis/fetch/ricevi_tuoi_pg.php";
 window.addEventListener("pageshow", RiceviTuoiPg);
-form_carica_pg.addEventListener("submit", RiceviTuoiPg);
 const tuoi_container=document.querySelector("#ricevi_tuoi_pg");
 
 function RiceviTuoiPg(event){
@@ -698,39 +681,28 @@ function onJsonRiceviPG(json){
 
             pg.appendChild(document.createElement("br"));
 
-    ////////////////////////////////////
             const livello = document.createElement("span");
-        
             livello.textContent="Livello: "+personaggio.info.lvl;
-
             pg.appendChild(livello);
-    ////////////////////////////////////
+            
             const razza = document.createElement("span");
-
             razza.textContent="Razza: "+personaggio.info.race;
-
             pg.appendChild(razza);
-    ////////////////////////////////////
+
             const classe = document.createElement("span");
-
             classe.textContent="Classe: "+personaggio.info.class;
-
             pg.appendChild(classe);
-    ////////////////////////////////////
+
             if(personaggio.info.subclass!=="null"){
                 const sottoclasse = document.createElement("span");
-
                 sottoclasse.textContent="Sottoclasse: "+personaggio.info.subclass;
-
                 pg.appendChild(sottoclasse);
             }
-    ////////////////////////////////////
+
             const background = document.createElement("span");
-
             background.textContent="Origini: "+personaggio.info.bg;
-
             pg.appendChild(background);
-    ////////////////////////////////////
+
             const bottone_elimina = document.createElement("button");
             bottone_elimina.classList.add("eliminami");
             bottone_elimina.innerText="elimina il personaggio";
@@ -738,6 +710,8 @@ function onJsonRiceviPG(json){
             bottone_elimina.addEventListener("click", EliminaPG);
             bottone_elimina.addEventListener("click", RiceviTuoiPg);
             pg.appendChild(bottone_elimina);
+
+
             pg.appendChild(document.createElement("br"));
 
             tuoi_container.appendChild(pg);
@@ -746,19 +720,12 @@ function onJsonRiceviPG(json){
     }
 }
 
-
-
+//////////////////////////////////////////////////////////////////////////
 
 const elimina_fetch_endpoint ="../apis/fetch/elimina_tuoi_pg.php";
 
 function EliminaPG(event){
     console.log("vuoi davvero eliminarmi??? :(");
-    
-    // console.log(event.target);
-
-    // console.log(event.target.id);
-
-    // console.log(event.target.parentNode);
 
     const form= new FormData();
     form.append('characterID', event.target.id);
@@ -780,11 +747,8 @@ function onJsonEliminaPG(json){
     console.log("json di eliminazione ricevuto: ");
     console.log(json);
 }
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////
 
 const bottone_altri_pg=document.querySelector("#bottone_altri").addEventListener("click", RiceviAltriPG);
 const ricevi_altri_fetch_endpoint = "../apis/fetch/ricevi_altri_pg.php";
@@ -795,28 +759,22 @@ function RiceviAltriPG(event){
 
     fetch(ricevi_altri_fetch_endpoint, {
         method:'post'
-    }).then(onResponseRiceviAltriPG/*, onErrorRiceviAltriPG*/);
+    }).then(onResponseRiceviAltriPG).then(onJsonRiceviAltriPG);
 }
 
 function onResponseRiceviAltriPG(response){
     console.log("risposta di ricevimento altri pg:");
     console.log(response);
-    return response.json().then(onJsonRiceviAltriPG);
+    return response.json();
 }
 
 function onJsonRiceviAltriPG(json){
-    console.log(json);
-    //body
     altri_container.innerHTML="";
-    // const bottone_altri_nuovo=document.createElement("button");
-    // bottone_altri_nuovo.setAttribute("id", "bottone_altri");
-    // bottone_altri_nuovo.addEventListener("click", RiceviAltriPG);
-    // bottone_altri_nuovo.innerText="PREMIMI";
-    // altri_container.appendChild(bottone_altri_nuovo);
 
+    console.log(json);
 
-        if(json.ok){
-        console.log("ci siamo");
+    if(json.ok){
+    console.log("ci siamo");
         for(let personaggio of json.characters){
 
             const pg = document.createElement("div");

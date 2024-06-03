@@ -1,5 +1,5 @@
 <?php
-require "../session/session.php"; 
+require "../../session/session.php"; 
 
 if(!isLogged()){
     exit;
@@ -15,11 +15,11 @@ if(!isLogged()){
    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic ".base64_encode($clientIdSpotify.":".$clientSecretSpotify))); 
    curl_setopt($curl, CURLOPT_POSTFIELDS, "grant_type=client_credentials");  
    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-   $token=json_decode(curl_exec($curl));
+   $token=json_decode(curl_exec($curl), true);
    curl_close($curl);  
 
-   $type = urlencode($_GET["type"]);
-   $q = urlencode($_GET["q"]);
+   $type = urlencode($_POST["type"]);
+   $q = urlencode($_POST["q"]);
 
    $endpoint = "https://api.spotify.com/v1/search?type="."$type"."&q="."$q";
    $curl2 = curl_init();
