@@ -5,39 +5,6 @@ if(isLogged()){
     header("Location: ../private/");
     exit;
 }
-
-if(isset($_POST["nome_utente"]) && isset($_POST["password"])){
-
-    $dbconn=mysqli_connect($dbsettings["host"], $dbsettings["username"], $dbsettings["password"], $dbsettings["dbname"]) /*or die(mysqli_error($dbconn))*/;
-    if(mysqli_connect_errno()){
-        echo "errore: ".mysqli_connect_error()." nella connessione al db";
-        exit();
-    }
-
-    $nomeUtente = mysqli_real_escape_string($dbconn, $_POST["nome_utente"]);
-    $password = mysqli_real_escape_string($dbconn, $_POST["password"]);
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
-    $query = "SELECT * FROM Utenti WHERE nome_utente='$nomeUtente'";
-    $row = mysqli_query($dbconn, $query) or die($dbconn);
-
-    if(mysqli_num_rows($row)==1){
-        $confronta = mysqli_fetch_assoc($row);
-        if(password_verify($_POST["password"], $confronta["password"])){
-            $_SESSION["nome_utente"] = $_POST["nome_utente"];
-            $_SESSION["id_utente"] = $confronta["id"];
-            // mysqli_free_result($row);
-            header("Location: ../private/");
-
-            mysqli_close($dbconn);
-            exit;
-        }
-    } else {
-        $errore= "Nome utente e/o password errati";
-    }
-} else if(isset($_POST["username"]) || isset($_POST["password"])){
-    $errore = "Mancano dei dati da inserire";
-}
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +26,7 @@ if(isset($_POST["nome_utente"]) && isset($_POST["password"])){
 
 
 <body id="body">
-    <form action="" method="post" id="login_form">
+    <form action="" method="post" id="accesso">
         <label for="nome_utente">Nome utente</label>
         <input type="text" name="nome_utente" id="nome_utente" placeholder="nome_utente">
 

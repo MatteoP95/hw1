@@ -1,8 +1,10 @@
 <?php
-require_once "../../session/session.php";
+require "../../session/session.php";
+
+header('Content-Type: application/json; charset=utf-8');
 
 if(!$idUtente=isLogged()){
-    header("Location: ../index/");
+    header("Location: ../../index/");
     exit;
 }
 

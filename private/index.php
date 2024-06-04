@@ -11,24 +11,13 @@ if(!$idUtente=isLogged()){
         echo "errore: ".mysqli_connect_error()." nella connessione al db";
         exit();
     }
-    // $idUtente = mysqli_real_escape_string($dbconn, $idUtente);
-    // $query = "SELECT * FROM utenti WHERE id = '$idUtente'";
-    // $risultato = mysqli_query($dbconn, $query);
-    // $riga = mysqli_fetch_assoc($risultato);   
-
-    // $riga['nome_utente'];
     
-    // echo "ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
-    // echo "</br>";
-    // echo "ciao ".$riga['nome_utente']."  ".$riga['id'];
-
-    $query = "SELECT id, nome_utente FROM utenti WHERE id = '$idUtente'";
-    $risultato = mysqli_query($dbconn, $query)  or die($dbconn);
-    $riga = mysqli_fetch_assoc($risultato);   
-    
-    echo "ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
+    if(isset($_SESSION['id_utente'])&&isset($_SESSION['nome_utente'])){
+        echo "primo ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
+    }
     echo "</br>";
-    echo "ciao ".$riga['nome_utente']."  ".$riga['id'];
+
+    echo "secondo ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
 ?>
 
 <!DOCTYPE html>
