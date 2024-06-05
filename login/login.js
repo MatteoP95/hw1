@@ -19,11 +19,19 @@ function isNomeCorretto(){
 
     if(nome_utente.value.length <= 2){
         console.log("errore: mancano caratteri");
+        
+        nome_utente.classList.remove("input_utente");
+        nome_utente.classList.add("errore");
         return 0;
     } else if(nome_utente.value.length >= 16){
         console.log("errore: troppi caratteri");
+        
+        nome_utente.classList.remove("input_utente");
+        nome_utente.classList.add("errore");
         return 0;
     }
+    nome_utente.classList.remove("errore");
+    nome_utente.classList.add("input_utente");
     console.log("tutto ok!!");
     return 1;
 }
@@ -35,11 +43,21 @@ function isPassswordCorretta(){
 
     if(password.value.length <= 9){
         console.log("errore: mancano caratteri");
+        
+        password.classList.remove("input_utente");
+        password.classList.add("errore");
         return 0;
+
     } else if(password.value.length >= 16){
         console.log("errore: troppi caratteri");
+
+        password.classList.remove("input_utente");
+        password.classList.add("errore");
         return 0;
     }
+    
+    password.classList.remove("errore");
+    password.classList.add("input_utente");
     console.log("tutto ok!!");
     return 1;
 }

@@ -12,18 +12,30 @@ form_registrazione.addEventListener("submit", isFormCorretto);
 
 
 function isNomeCorretto(){
+    console.log(nome_utente);
     console.log(nome_utente.value);
     console.log(nome_utente.value.length);
 
 
     if(nome_utente.value.length <= 2){
         console.log("errore: mancano caratteri");
+        nome_utente.classList.remove("input_utente");
+
+        nome_utente.classList.add("errore");
+
         return 0;
     } else if(nome_utente.value.length >= 16){
         console.log("errore: troppi caratteri");
+        nome_utente.classList.remove("input_utente");
+
+        nome_utente.classList.add("errore");
+
         return 0;
     }
-    console.log("tutto ok!!");
+    nome_utente.classList.remove("errore");
+    nome_utente.classList.add("input_utente");
+
+    console.log("nome utente ok!!");
     return 1;
 }
 
@@ -34,12 +46,24 @@ function isPassswordCorretta(){
 
     if(password.value.length <= 9){
         console.log("errore: mancano caratteri");
+        password.classList.remove("input_utente");
+
+        password.classList.add("errore");
+
         return 0;
     } else if(password.value.length >= 16){
         console.log("errore: troppi caratteri");
+        password.classList.remove("input_utente");
+
+        password.classList.add("errore");
+
         return 0;
     }
-    console.log("tutto ok!!");
+
+    password.classList.remove("errore");
+    password.classList.add("input_utente");
+
+    console.log("password ok!!");
     return 1;
 }
 
@@ -47,12 +71,19 @@ function isRipetiCorretta(){
     console.log(ripeti_password.value);
     console.log(ripeti_password.value.length);
 
-    if(ripeti_password.value !== password.value && isPassswordCorretta()){
+    if(ripeti_password.value !== password.value || !isPassswordCorretta()){
         console.log("errore: password invalida");
+        ripeti_password.classList.remove("input_utente");
+
+        ripeti_password.classList.add("errore");
         return 0;
     }
     
-    console.log("tutto ok!!");
+    ripeti_password.classList.remove("errore");
+    ripeti_password.classList.add("input_utente");
+
+
+    console.log("ripeti ok!!");
     return 1;
 }
 
@@ -80,7 +111,6 @@ function onResponseRegister(response){
     console.log(response);
 
     return response.json();
-    //si blocca qui dicendo che il contenuto non è un json (mostra come contenuto la pagina privata)
 }
 
 function onJsonRegister(json){

@@ -5,19 +5,6 @@ if(!$idUtente=isLogged()){
     header("Location: ../index/");
     exit;
 }
-
-    $dbconn=mysqli_connect($dbsettings["host"], $dbsettings["username"], $dbsettings["password"], $dbsettings["dbname"]) /*or die(mysqli_error($dbconn))*/;
-    if(mysqli_connect_errno()){
-        echo "errore: ".mysqli_connect_error()." nella connessione al db";
-        exit();
-    }
-    
-    if(isset($_SESSION['id_utente'])&&isset($_SESSION['nome_utente'])){
-        echo "primo ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
-    }
-    echo "</br>";
-
-    echo "secondo ciao ".$_SESSION["nome_utente"]."  ".$idUtente;
 ?>
 
 <!DOCTYPE html>
@@ -30,97 +17,125 @@ if(!$idUtente=isLogged()){
     
     <link rel="stylesheet" href="private.css">
     <script src="private.js" defer></script>
+    <script src="https://kit.fontawesome.com/46c0843b72.js" crossorigin="anonymous"></script>
 
     <title>La tua area privata</title>
 </head>
 <body>
+
+    <div class="marrone">
+        <div id="header">
+            <div id="header-top">
+                <div id="header-top-left">
+                    <div id="testo-su-immagine">
+                        <h1 class="titolo">
+                            D&D 5a Edizione
+                        </h1>
+                        <p class="sottotitolo">
+                            wiki di Matteo
+                        </p>
+                    </div>
+                </div>
+                <div id="header-top-right">
+                    <div>
+                        <span>La tua area privata<br></span>
+                        <a href="../logout/">Disconnettiti</a>
+                        <span><br>oppure<br></span>
+                        <span>torna alla <a href="../index/">home</a><br></span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="bianco">
-        <div class="vuoto">
+        <div id="carica_pg-div">
+            <div id="sinistra">
+                <i class="fa-solid fa-user-plus"></i>
+                <span>Crea personaggi unici e condividili con tutti!</span>
+            </div>
+            <div id="destra">
+                <form action="" method="get"  id="form_carica_pg">
+                    <label for="livello">Livello</label>
+                    <input type="number" name="livello" id="livello" min="1" max="20">
+
+                    <label for="razza">Razza</label>
+                    <!-- <input type="text" name="razza" id="razza"> -->
+                    <select name="razza" id="razza">
+                        <optgroup label="Tutte le Razze:">
+                            <option value="Elfo">Elfo</option>
+                            <option value="Halfling">Halfling</option>
+                            <option value="Nano">Nano</option>
+                            <option value="Umano">Umano</option>
+                            <option value="Dragonide">Dragonide</option>
+                            <option value="Gnomo">Gnomo</option>
+                            <option value="Mezzelfo">Mezzelfo</option>
+                            <option value="Mezzorco">Mezzorco</option>
+                            <option value="Tiefling">Tiefling</option>
+                        </optgroup>
+                    </select>
+
+                    <label for="classe">Classe</label>
+                    <!-- <input type="text" name="classe" id="classe"> -->
+                    <select name="classe" id="classe">
+                        <optgroup label="Tutte le Classi:">
+                            <option value="Barbaro">Barbaro</option>
+                            <option value="Bardo">Bardo</option>
+                            <option value="Chierico">Chierico</option>
+                            <option value="Druido">Druido</option>
+                            <option value="Guerriero">Guerriero</option>
+                            <option value="Ladro">Ladro</option>
+                            <option value="Mago">Mago</option>
+                            <option value="Monaco">Monaco</option>
+                            <option value="Paladino">Paladino</option>
+                            <option value="Ranger">Ranger</option>
+                            <option value="Stregone">Stregone</option>
+                            <option value="Warlock">Warlock</option>
+                        </optgroup>
+                    </select>
+                    
+                    <label for="sottoclasse" id="label_sottoclasse">Sottoclasse</label>
+                    <!-- <input type="text" name="sottoclasse" id="sottoclasse"> -->
+                    <select name="sottoclasse" id="sottoclasse" disabled>
+                        <optgroup label="Tutte le Sottoclassi:" id="gruppo_opzioni_sottoclasse">
+                            <option value="">---scegli una classe---</option>   
+                        </optgroup>
+                    </select>
+
+                    <label for="background">Origini</label>
+                    <select name="background" id="background">
+                        <optgroup label="Tutte le Origini:">
+                            <option value="Accolito">Accolito</option>
+                            <option value="Artigiano della Gilda">Artigiano della Gilda</option>
+                            <option value="Ciarlatano">Ciarlatano</option>
+                            <option value="Criminale">Criminale</option>
+                            <option value="Eremita">Eremita</option>
+                            <option value="Eroe Popolare">Eroe Popolare</option>
+                            <option value="Forestiero">Forestiero</option>
+                            <option value="Intrattenitore">Intrattenitore</option>
+                            <option value="Marinaio">Marinaio</option>
+                            <option value="Monello">Monello</option>
+                            <option value="Nobile">Nobile</option>
+                            <option value="Sapiente">Sapiente</option>
+                            <option value="Soldato">Soldato</option>
+                        </optgroup>
+
+                    </select>
+
+                    <input type="submit" value="Invia" id="invia_nuovo_pg">
+                </form>
+            </div>
+               
         </div>
 
-        <div id="carica_pg">
-            <form action="" method="get" id="carica_pg">
-                <label for="livello">Livello</label>
-                <input type="number" name="livello" id="livello" min="1" max="20">
-
-                <label for="razza">Razza</label>
-                <!-- <input type="text" name="razza" id="razza"> -->
-                <select name="razza" id="razza">
-                    <optgroup label="Tutte le Razze:">
-                        <option value="Elfo">Elfo</option>
-                        <option value="Halfling">Halfling</option>
-                        <option value="Nano">Nano</option>
-                        <option value="Umano">Umano</option>
-                        <option value="Dragonide">Dragonide</option>
-                        <option value="Gnomo">Gnomo</option>
-                        <option value="Mezzelfo">Mezzelfo</option>
-                        <option value="Mezzorco">Mezzorco</option>
-                        <option value="Tiefling">Tiefling</option>
-                    </optgroup>
-                </select>
-
-                <label for="classe">Classe</label>
-                <!-- <input type="text" name="classe" id="classe"> -->
-                <select name="classe" id="classe">
-                    <optgroup label="Tutte le Classi:">
-                        <option value="Barbaro">Barbaro</option>
-                        <option value="Bardo">Bardo</option>
-                        <option value="Chierico">Chierico</option>
-                        <option value="Druido">Druido</option>
-                        <option value="Guerriero">Guerriero</option>
-                        <option value="Ladro">Ladro</option>
-                        <option value="Mago">Mago</option>
-                        <option value="Monaco">Monaco</option>
-                        <option value="Paladino">Paladino</option>
-                        <option value="Ranger">Ranger</option>
-                        <option value="Stregone">Stregone</option>
-                        <option value="Warlock">Warlock</option>
-                    </optgroup>
-                </select>
-                
-                <label for="sottoclasse" id="label_sottoclasse">Sottoclasse</label>
-                <!-- <input type="text" name="sottoclasse" id="sottoclasse"> -->
-                <select name="sottoclasse" id="sottoclasse" disabled>
-                    <optgroup label="Tutte le Sottoclassi:" id="gruppo_opzioni_sottoclasse">
-                        <option value="">---scegli una classe---</option>   
-                    </optgroup>
-                </select>
-
-                <label for="background">Origini</label>
-                <select name="background" id="background">
-                    <optgroup label="Tutte le Origini:">
-                        <option value="Accolito">Accolito</option>
-                        <option value="Artigiano della Gilda">Artigiano della Gilda</option>
-                        <option value="Ciarlatano">Ciarlatano</option>
-                        <option value="Criminale">Criminale</option>
-                        <option value="Eremita">Eremita</option>
-                        <option value="Eroe Popolare">Eroe Popolare</option>
-                        <option value="Forestiero">Forestiero</option>
-                        <option value="Intrattenitore">Intrattenitore</option>
-                        <option value="Marinaio">Marinaio</option>
-                        <option value="Monello">Monello</option>
-                        <option value="Nobile">Nobile</option>
-                        <option value="Sapiente">Sapiente</option>
-                        <option value="Soldato">Soldato</option>
-                    </optgroup>
-
-                </select>
-
-                <input type="submit" value="Invia" id="invia_nuovo_pg">
-            </form>
-            <?php
-            if(isset($errore)){
-                echo "<div>'$errore'</div>";
-            }
-            ?>
-        </div>
                                 
         <div class="vuoto">
         </div>
 
         <div id="spazio_pg_propri">
             <div id="ricevi_tuoi_pg">
-            
+                <span>I tuoi personaggi:</span>
             </div>
         </div>
         
@@ -185,8 +200,6 @@ if(!$idUtente=isLogged()){
             </div>
 
         </div>
-        <a href="../logout/">Disconnettiti</a>
-        <a href="../index/">torna alla home</a>
     </div>
 
     <footer id="flex_footer">

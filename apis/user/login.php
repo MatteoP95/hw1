@@ -3,6 +3,13 @@ require "../../session/session.php";
 
 header('Content-Type: application/json; charset=utf-8');
 
+// if(isLogged()){
+//     echo json_encode(array(
+//         'ok'=>true,
+//         'redirect'=>'private'
+//     ));
+//     exit;
+// }
 
 if(!empty($_POST["nome_utente"]) && !empty($_POST["password"])){
 

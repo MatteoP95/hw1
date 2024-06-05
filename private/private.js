@@ -111,7 +111,7 @@ function onJsonSpotify(json){
 
 //////////////////////////////////////////////////////////////////////////
 
-const form_carica_pg = document.querySelector("#carica_pg");
+const form_carica_pg = document.querySelector("#form_carica_pg");
 form_carica_pg.addEventListener("submit", CaricaPG);
 form_carica_pg.addEventListener("submit", RiceviTuoiPg);
 

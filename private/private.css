@@ -6,19 +6,85 @@
     font-size: calc(1em+1%);
 }
 
+
+
 .marrone{
     background-color: rgb(120, 107, 61);
+}
+
+.bianco{
+    background-color: rgb(255, 252, 242);
 }
 
 .giallo{
     background-color:rgb(255, 230, 140);
 }
 
-.bianco{
-    background-color: rgb(255, 252, 242);
+#header{
+    display: flex;
+    flex-direction: column;
+
+		
+	color: rgb(236, 233, 228);
+	font-size: 1.5vw;
 }
-.testo{
-    color: rgb(216, 212, 208);
+
+#header-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 50%;
+    width: 100%;
+}
+
+#header-top-left{
+    height: 100%;
+    width: 25%;
+    text-align: center;
+
+    text-shadow: 0.2vw 0.2vw black;
+}
+
+
+#header-top-right{
+    height: 100%;
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-end;
+
+	text-align: center;
+}
+
+#header-bottom{
+    height: 50%;
+    width: 100%;
+
+    text-align: center;
+}
+
+#header #header-top #header-top-right a{
+	color: rgb(177, 165, 124);
+
+    &:link, &:visited{
+        text-decoration: none;
+    }
+    &:hover, &:active{
+        text-decoration: underline;
+    }
+}
+
+#testo-su-immagine{
+    height: 100%;
+    width: 100%;
+    background-image: url(../index/immagini/Logo1.png);
+    background-size: contain;
+    background-position:center;
+    background-repeat: no-repeat;
 }
 
 #flex_footer{
@@ -28,8 +94,6 @@
     align-items: center;
 
     text-align: center;
-
-    background-color: rgb(255, 252, 242);
 }
 
 .vuoto{
@@ -37,7 +101,49 @@
     height: 50px;
 }
 
-#carica_pg{
+#carica_pg-div{
+    display: flex;
+
+    height: 50vh;
+    width: 100vw;
+}
+#carica_pg-div #sinistra{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+
+    height: 100%;
+    width: 40%;
+
+    font-size: 1.5vw;
+}
+#carica_pg-div #sinistra i{
+    font-size: 5vw;
+}
+
+
+#carica_pg-div #destra{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 60%;
+}
+
+#form_carica_pg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+#carica_pg-div #destra form{
     display: flex;
     flex-direction: column;
     justify-content: center;
